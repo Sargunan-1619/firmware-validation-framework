@@ -1,0 +1,3 @@
+# Firmware Validation Framework
+# Zero external dependencies (Python standard library only)
+# Python >= 3.10

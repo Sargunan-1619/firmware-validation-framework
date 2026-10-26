@@ -1,0 +1,16 @@
+# ==============================================================================
+# Render Blueprint Specification
+# Free Tier Web Service Deployment for Firmware Validation Framework
+# ==============================================================================
+services:
+  - type: web
+    name: firmware-validation-framework
+    runtime: docker
+    plan: free
+    region: oregon
+    healthCheckPath: /api/status
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: HOST
+        value: 0.0.0.0

@@ -14,17 +14,13 @@ from .models import TestStatus
 from .test_definitions import get_all_test_cases
 
 
+from .binary_resolver import resolve_target_binary
+
+
 def _get_target_binary() -> Path:
-    """Resolve target binary path from environment or default path."""
-    env_path = os.environ.get("SENSOR_CONTROLLER_BIN")
-    if env_path:
-        return Path(env_path)
-    
-    # Default path to Project 1
-    default_scratch_path = Path(
-        r"C:\Users\csarg\.gemini\antigravity-ide\scratch\sensor_fault_controller\build\sensor_controller.exe"
-    )
-    return default_scratch_path
+    """Resolve target binary path from environment, relative repos, or scratch paths."""
+    bin_path, _ = resolve_target_binary()
+    return bin_path
 
 
 def make_unittest_class() -> Type[unittest.TestCase]:

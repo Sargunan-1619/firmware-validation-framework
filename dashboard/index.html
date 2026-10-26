@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firmware Validation Framework — Real-Time Verification Console</title>
+  <meta name="description" content="Automated black-box firmware verification dashboard testing compiled C11 sensor controller executables with real telemetry validation.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <!-- Global Toast Notifications Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- Header Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title-row">
+            <h1 class="brand-title">Firmware Validation Framework</h1>
+            <span class="badge badge-version">v1.0.0</span>
+          </div>
+          <p class="brand-subtitle">Automated Black-Box Verification &bull; Target: Project 1 (ISO C11 Sensor Controller)</p>
+        </div>
+      </div>
+
+      <div class="header-status-group">
+        <div id="binary-status-pill" class="status-pill status-pill-loading" title="Target C controller binary detection status">
+          <span class="pulse-dot"></span>
+          <span id="binary-status-text">Detecting Binary...</span>
+        </div>
+        <div class="platform-tag" id="platform-tag" title="Execution Environment">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+            <line x1="8" y1="21" x2="16" y2="21"/>
+            <line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <span id="platform-text">Host OS</span>
+        </div>
+        <div class="repo-links">
+          <a href="https://github.com/Sargunan-1619/sensor-fault-controller" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" title="Project 1: C Sensor Controller">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            Project 1 (C11)
+          </a>
+          <a href="https://github.com/Sargunan-1619/firmware-validation-framework" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm" title="Project 2: Python Framework">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            Project 2 (Python)
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    <div class="content-container">
+
+      <!-- Action & Execution Control Toolbar -->
+      <section class="toolbar-card" aria-label="Validation Execution Controls">
+        <div class="toolbar-left">
+          <div class="select-wrapper">
+            <label for="suite-select" class="sr-only">Select Test Suite</label>
+            <select id="suite-select" class="form-select">
+              <option value="all">Full Suite (All 37 Tests)</option>
+              <option value="normal">Normal Range (&lt; 60°C)</option>
+              <option value="warning">Warning Range (60°C–79.9°C)</option>
+              <option value="fault">Fault Range (&ge; 80°C)</option>
+              <option value="boundary">Boundary Scenarios</option>
+              <option value="invalid_input">Invalid Input &amp; Syntax</option>
+              <option value="sensor_error">Sensor Hardware Status</option>
+              <option value="execution_failure">Process Robustness</option>
+            </select>
+          </div>
+
+          <button id="btn-run-validation" class="btn btn-primary" type="button">
+            <span class="btn-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+            </span>
+            <span class="btn-spinner hidden"></span>
+            <span class="btn-label">Run Validation</span>
+          </button>
+        </div>
+
+        <div class="toolbar-right">
+          <div class="timestamp-display">
+            <span class="timestamp-label">Latest Run:</span>
+            <span id="run-timestamp" class="timestamp-value">Loading...</span>
+          </div>
+
+          <button id="btn-view-raw-json" class="btn btn-secondary btn-sm" type="button" title="Inspect report JSON structure">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+            View JSON
+          </button>
+
+          <a id="btn-download-report" href="/api/report/download" class="btn btn-secondary btn-sm" download="validation_report.json" title="Download the real generated JSON report">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download Report
+          </a>
+        </div>
+      </section>
+
+      <!-- KPI Summary Cards -->
+      <section class="kpi-grid" aria-label="Key Performance Indicators">
+        <div class="kpi-card" id="kpi-total">
+          <div class="kpi-icon-wrap icon-cyan">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 11l3 3L22 4"/>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+            </svg>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Total Test Cases</span>
+            <span id="kpi-val-total" class="kpi-value">--</span>
+            <span class="kpi-subtext" id="kpi-sub-total">Registered test catalog</span>
+          </div>
+        </div>
+
+        <div class="kpi-card" id="kpi-passed">
+          <div class="kpi-icon-wrap icon-green">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Tests Passed</span>
+            <span id="kpi-val-passed" class="kpi-value">--</span>
+            <span class="kpi-subtext text-green" id="kpi-sub-passed">Zero regressions detected</span>
+          </div>
+        </div>
+
+        <div class="kpi-card" id="kpi-failed">
+          <div class="kpi-icon-wrap icon-red">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="15" y1="9" x2="9" y2="15"/>
+              <line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Failed / Errors</span>
+            <span id="kpi-val-failed" class="kpi-value">--</span>
+            <span class="kpi-subtext" id="kpi-sub-failed">Nominal threshold</span>
+          </div>
+        </div>
+
+        <div class="kpi-card" id="kpi-rate">
+          <div class="kpi-icon-wrap icon-emerald">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
+            </svg>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Pass Rate</span>
+            <span id="kpi-val-rate" class="kpi-value">--%</span>
+            <span class="kpi-subtext" id="kpi-sub-duration">Duration: -- ms</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive C Controller Demonstration Console (Simulated Hardware) -->
+      <section class="section-card" id="sim-console-section" aria-label="Interactive Sensor Controller Demonstration">
+        <div class="card-header">
+          <div class="card-title-group">
+            <div class="section-badge-dot"></div>
+            <div>
+              <h2 class="card-title">Live C Controller Demonstration Console</h2>
+              <p class="card-description">
+                Direct execution of the compiled C11 executable (<code id="target-bin-label">sensor_controller.exe</code>) in user space with real subprocess telemetry.
+              </p>
+            </div>
+          </div>
+          <div class="disclaimer-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="12" y1="8" x2="12" y2="12"/>
+              <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            Simulated Telemetry
+          </div>
+        </div>
+
+        <div class="sim-grid">
+          <!-- Input Controls Column -->
+          <div class="sim-input-col">
+            <div class="form-group">
+              <div class="label-row">
+                <label for="sim-temp-input" class="form-label">Simulated Temperature (°C)</label>
+                <span id="sim-temp-display" class="val-display">25.0 °C</span>
+              </div>
+              <div class="slider-row">
+                <input id="sim-temp-slider" type="range" min="-50" max="170" step="0.5" value="25.0" class="temp-slider">
+                <input id="sim-temp-input" type="text" value="25.0" class="form-input temp-num-input" placeholder="e.g. 25.0 or INVALID">
+              </div>
+            </div>
+
+            <!-- Quick Preset Chips -->
+            <div class="form-group">
+              <label class="form-label text-xs">Quick Operating Presets</label>
+              <div class="preset-chips-row">
+                <button type="button" class="chip-btn" data-temp="25.0" data-status="OK">Ambient (25°C)</button>
+                <button type="button" class="chip-btn" data-temp="65.0" data-status="OK">Warning (65°C)</button>
+                <button type="button" class="chip-btn" data-temp="85.0" data-status="OK">Over-Temp (85°C)</button>
+                <button type="button" class="chip-btn" data-temp="-40.0" data-status="OK">Min Bound (-40°C)</button>
+                <button type="button" class="chip-btn" data-temp="150.0" data-status="OK">Max Bound (150°C)</button>
+                <button type="button" class="chip-btn" data-temp="150.1" data-status="OUT_OF_BOUNDS">Breach (150.1°C)</button>
+                <button type="button" class="chip-btn" data-temp="25.0" data-status="DISCONNECTED">Disconnected</button>
+                <button type="button" class="chip-btn" data-temp="INVALID" data-status="INVALID">Token (INVALID)</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="sim-status-select" class="form-label">Simulated Hardware / Telemetry Status Flag</label>
+              <select id="sim-status-select" class="form-select">
+                <option value="OK">OK — Healthy Transducer &amp; ADC Bus</option>
+                <option value="DISCONNECTED">DISCONNECTED — Hardware Open Circuit</option>
+                <option value="COMM_TIMEOUT">COMM_TIMEOUT — I2C/SPI Bus Conversion Timeout</option>
+                <option value="OUT_OF_BOUNDS">OUT_OF_BOUNDS — Sensor Value Outside Limits</option>
+                <option value="INVALID">INVALID — Corrupted Telemetry Payload</option>
+              </select>
+            </div>
+
+            <button id="btn-execute-sim" class="btn btn-accent w-full" type="button">
+              <span class="btn-spinner hidden" id="sim-spinner"></span>
+              <span id="sim-btn-text">Execute C Controller Process</span>
+            </button>
+          </div>
+
+          <!-- Real-Time Output Visualizer Column -->
+          <div class="sim-output-col">
+            <div class="telemetry-box">
+              <div class="telemetry-header">
+                <span class="telemetry-title">C Controller State Machine Telemetry</span>
+                <span id="sim-latency-badge" class="badge badge-mono">Latency: -- ms</span>
+              </div>
+
+              <!-- Thermal Spectrum Bar -->
+              <div class="thermal-gauge-container">
+                <div class="thermal-labels">
+                  <span>-40°C Min</span>
+                  <span class="marker-warn">60°C Warn</span>
+                  <span class="marker-fault">80°C Fault</span>
+                  <span>150°C Max</span>
+                </div>
+                <div class="thermal-bar-track">
+                  <div id="thermal-bar-fill" class="thermal-bar-fill" style="width: 34.2%;"></div>
+                  <div class="threshold-indicator warn-line" style="left: 52.6%;"></div>
+                  <div class="threshold-indicator fault-line" style="left: 63.1%;"></div>
+                </div>
+              </div>
+
+              <!-- State & Fault Summary Cards -->
+              <div class="telemetry-metrics-grid">
+                <div class="telemetry-cell">
+                  <span class="cell-label">System State</span>
+                  <div id="sim-out-state" class="cell-value state-normal">NORMAL</div>
+                </div>
+
+                <div class="telemetry-cell">
+                  <span class="cell-label">Active Fault Code</span>
+                  <div id="sim-out-fault" class="cell-value fault-none">NONE</div>
+                </div>
+
+                <div class="telemetry-cell">
+                  <span class="cell-label">Exit Return Code</span>
+                  <div id="sim-out-exitcode" class="cell-value exit-zero">0 (Nominal)</div>
+                </div>
+
+                <div class="telemetry-cell">
+                  <span class="cell-label">Parsed Telemetry</span>
+                  <div id="sim-out-temp" class="cell-value text-cyan">25.00 °C</div>
+                </div>
+              </div>
+
+              <!-- Command Line Terminal Preview -->
+              <div class="terminal-preview">
+                <div class="terminal-bar">
+                  <span class="term-dot red"></span>
+                  <span class="term-dot yellow"></span>
+                  <span class="term-dot green"></span>
+                  <span class="term-title">Subprocess STDOUT / STDERR Telemetry</span>
+                </div>
+                <pre id="sim-out-terminal" class="terminal-body">$ ./sensor_controller.exe 25.0 OK
+STATE: NORMAL | TEMP: 25.00 C | FAULT: NONE</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Test Catalog & Validation Results Section -->
+      <section class="section-card" id="results-section" aria-label="Validation Test Cases and Results">
+        <div class="results-header-row">
+          <div>
+            <h2 class="card-title">Automated Validation Test Results</h2>
+            <p class="card-description">Individual test case results comparing expected versus actual controller behaviors.</p>
+          </div>
+
+          <div class="search-filter-box">
+            <input id="test-search-input" type="search" class="form-input search-input" placeholder="Search test by ID, name, or description...">
+          </div>
+        </div>
+
+        <!-- Category Tab Filters -->
+        <nav class="category-tabs" id="category-tabs" aria-label="Test Category Filters">
+          <button type="button" class="tab-btn active" data-category="all">All Tests <span class="tab-count" id="count-all">37</span></button>
+          <button type="button" class="tab-btn" data-category="normal">Normal <span class="tab-count" id="count-normal">5</span></button>
+          <button type="button" class="tab-btn" data-category="warning">Warning <span class="tab-count" id="count-warning">4</span></button>
+          <button type="button" class="tab-btn" data-category="fault">Fault <span class="tab-count" id="count-fault">3</span></button>
+          <button type="button" class="tab-btn" data-category="boundary">Boundary <span class="tab-count" id="count-boundary">10</span></button>
+          <button type="button" class="tab-btn" data-category="invalid_input">Invalid Input <span class="tab-count" id="count-invalid_input">7</span></button>
+          <button type="button" class="tab-btn" data-category="sensor_error">Sensor Error <span class="tab-count" id="count-sensor_error">7</span></button>
+          <button type="button" class="tab-btn" data-category="execution_failure">Robustness <span class="tab-count" id="count-execution_failure">1</span></button>
+        </nav>
+
+        <!-- Test Cards List -->
+        <div id="test-cards-list" class="test-cards-list">
+          <!-- Dynamic test items rendered via dashboard.js -->
+          <div class="loading-state">
+            <div class="spinner"></div>
+            <span>Loading validation records...</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Modal: View Raw JSON Report -->
+  <div id="json-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modal-title" class="modal-title">Machine-Readable JSON Validation Report</h3>
+        <button id="modal-close-btn" class="modal-close" type="button" aria-label="Close Modal">&times;</button>
+      </div>
+      <div class="modal-toolbar">
+        <span id="modal-meta-timestamp" class="text-xs text-muted">Timestamp: --</span>
+        <button id="btn-copy-json" class="btn btn-ghost btn-sm" type="button">Copy to Clipboard</button>
+      </div>
+      <div class="modal-body">
+        <pre id="json-modal-content" class="json-code-view">Loading JSON...</pre>
+      </div>
+      <div class="modal-footer">
+        <a href="/api/report/download" class="btn btn-primary btn-sm" download="validation_report.json">Download JSON File</a>
+        <button id="modal-dismiss-btn" class="btn btn-secondary btn-sm" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>Firmware Validation Framework &bull; Designed for Embedded Safety-Critical Systems</p>
+      <p class="footer-sub">Zero-dependency Python standard library test runner &bull; ISO C11 target verification</p>
+    </div>
+  </footer>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

@@ -2,10 +2,30 @@
 
 [![Validation Status](https://img.shields.io/badge/Validation-37%20Passed%20%2F%200%20Failed-brightgreen)](reports/validation_report.json)
 [![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Render%20Web%20Dashboard-46E3B7?logo=render)](https://firmware-validation-framework.onrender.com)
+[![Docker Ready](https://img.shields.io/badge/Docker-Multi--Stage%20GCC%20%2B%20Python-2496ED?logo=docker)](Dockerfile)
 [![Dependencies](https://img.shields.io/badge/Dependencies-Standard%20Library%20Only-success)]()
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-An automated, zero-dependency Python firmware verification and validation framework designed for safety-critical embedded C controllers. Built to validate the standalone compiled executable of **[sensor-fault-controller (Project 1)](https://github.com/Sargunan-1619/sensor-fault-controller)** in read-only black-box mode without modifying any firmware source files.
+An automated, zero-dependency Python firmware verification and validation framework designed for safety-critical embedded C controllers. Built to validate the compiled executable of **[sensor-fault-controller (Project 1)](https://github.com/Sargunan-1619/sensor-fault-controller)** in read-only black-box mode without modifying any firmware source files.
+
+---
+
+## 🌐 Live Interactive Engineering Dashboard
+
+Experience the complete verification platform running live:
+
+👉 **[Launch Live Dashboard (Render)](https://firmware-validation-framework.onrender.com)** *(Replace with your deployed Render URL once published)*
+
+> [!NOTE]
+> **Real Executable Invocations:** The dashboard does **not** mock or simulate controller outputs in JavaScript. When you trigger validation runs or test simulated thermal inputs, the Python backend spawns the real compiled `sensor_controller` C binary in a sandboxed child process, capturing exact stdout, stderr, process exit codes, and latency in milliseconds.
+
+### Key Visual & Verification Features
+- **One-Click Automated Suite Execution:** Run all 37 test cases or filter by domain (`normal`, `warning`, `fault`, `boundary`, `invalid_input`, `sensor_error`) with real-time pass/fail streaming.
+- **Live C Controller Hardware Demonstration:** Interactive telemetry console that executes the real compiled `sensor_controller` process in user space with simulated inputs, visualizing real-time thermal gauges, state machine transitions (`NORMAL`, `WARNING`, `FAULT`), active fault codes, exit codes, and latency.
+- **Side-by-Side Expected vs. Actual Inspector:** Deep-dive cards showing parameter arrays, exact expected values vs actual binary outputs, execution duration, and failure diagnostics.
+- **In-Browser JSON Report Viewer & Download:** Inspect the generated `validation_report.json` in an interactive modal or download it directly.
+- **Zero External Dependencies:** Built with Python standard library (`http.server`, `subprocess`, `dataclasses`, `json`) and vanilla CSS/JS.
 
 ---
 
@@ -15,36 +35,36 @@ An automated, zero-dependency Python firmware verification and validation framew
                           +------------------------------------------------+
                           |      Firmware Validation Framework (Python)     |
                           +------------------------------------------------+
-                                       |                      |
-                    CLI Runner (validate.py)       unittest Adapter (unittest)
-                                       \                      /
-                                        v                    v
-                                 +--------------------------------+
-                                 |        ValidationRunner        |
-                                 +--------------------------------+
-                                                 |
-                       +-------------------------+-------------------------+
-                       |                                                   |
-                       v                                                   v
-         +---------------------------+                       +---------------------------+
-         |     ControllerClient      |                       |      AssertionEngine      |
-         |  (subprocess, timeouts,   |                       |  (exit code, state, fault,|
-         |    stdout/stderr parsing) |                       |   temp, regex assertions) |
-         +---------------------------+                       +---------------------------+
-                       |                                                   |
-                       | Invokes Child Process                             | Evaluates
-                       v                                                   v
-         +---------------------------+                       +---------------------------+
-         |    sensor_controller.exe  |---------------------->|     ValidationSummary     |
-         |   (Project 1 C Binary)    |    Exit Code & STDOUT |    (JSON Report Output)   |
-         +---------------------------+                       +---------------------------+
+                                        |                      |
+                   Web Dashboard Server (server.py)       CLI Runner (validate.py)
+                                        \                      /
+                                         v                    v
+                                  +--------------------------------+
+                                  |        ValidationRunner        |
+                                  +--------------------------------+
+                                                  |
+                        +-------------------------+-------------------------+
+                        |                                                   |
+                        v                                                   v
+          +---------------------------+                       +---------------------------+
+          |     ControllerClient      |                       |      AssertionEngine      |
+          |  (subprocess, timeouts,   |                       |  (exit code, state, fault,|
+          |    stdout/stderr parsing) |                       |   temp, regex assertions) |
+          +---------------------------+                       +---------------------------+
+                        |                                                   |
+                        | Invokes Child Process                             | Evaluates
+                        v                                                   v
+          +---------------------------+                       +---------------------------+
+          |      sensor_controller    |---------------------->|     ValidationSummary     |
+          |   (Compiled ISO C11)      |    Exit Code & STDOUT |    (JSON Report Output)   |
+          +---------------------------+                       +---------------------------+
 ```
 
 ### Essential Python & Testing Concepts Applied
 
 1. **Standard Library Zero-Dependency Design**:
-   - Implemented entirely with Python built-in modules (`subprocess`, `dataclasses`, `enum`, `typing`, `json`, `argparse`, `time`, `pathlib`, `re`, `unittest`).
-   - Requires no `pip install` or external virtual environment setup; runs identically in CI/CD pipelines and embedded Linux/Windows development environments.
+   - Implemented entirely with Python built-in modules (`subprocess`, `dataclasses`, `enum`, `typing`, `json`, `argparse`, `time`, `pathlib`, `re`, `unittest`, `http.server`).
+   - Requires no third-party packages; runs identically in local development, CI/CD runners, and Docker containers.
 
 2. **Subprocess Management & Execution Isolation**:
    - Uses `subprocess.run` to spawn the compiled C controller as a decoupled child process.
@@ -63,22 +83,34 @@ An automated, zero-dependency Python firmware verification and validation framew
      4. **Temperature Telemetry**: Floating-point tolerance comparison (`math.isclose` within ±0.02°C).
      5. **Pattern Matching**: Regex matching on `stderr` (e.g. usage messages on syntax errors).
 
-5. **Dual Test Execution Paradigms**:
-   - **Standalone CLI Runner (`validate.py`)**: High-performance test runner with suite filters, rich ANSI console output, and automatic JSON report generation.
-   - **`unittest` Adapter (`unittest_adapter.py`)**: Dynamic test method synthesis enabling native discovery with `python -m unittest`.
+5. **Multi-Platform Binary Resolution**:
+   - `binary_resolver.py` dynamically locates either the Windows executable (`sensor_controller.exe`) or Linux binary (`sensor_controller`), checking local build paths, sibling Project 1 directories, and containerized deployment paths.
 
 ---
 
 ## Repository Structure
 
-```
+```text
 firmware-validation-framework/
-├── .gitignore                     # Git ignore file for Python & binary artifacts
-├── README.md                      # Framework documentation and verification records
+├── .github/workflows/
+│   └── validate.yml               # Automated CI matrix for Python 3.10, 3.11, 3.12
+├── .gitignore                     # Git ignore rules
+├── LICENSE                        # MIT License
+├── README.md                      # Comprehensive architecture and validation evidence
+├── Dockerfile                     # Multi-stage Docker build for Render deployment
+├── render.yaml                    # Infrastructure-as-code deployment specification
+├── requirements.txt               # Documented zero-dependency manifest
+├── server.py                      # Lightweight standard-library HTTP dashboard server
 ├── validate.py                    # Primary CLI runner entrypoint
+├── dashboard/                     # Professional engineering web dashboard
+│   ├── favicon.svg                # Dashboard icon
+│   ├── index.html                 # Semantic HTML5 UI layout
+│   ├── dashboard.css              # Dark-mode industrial engineering styles
+│   └── dashboard.js               # Client-side telemetry and test viewer logic
 ├── framework/
 │   ├── __init__.py                # Package metadata and version definition
 │   ├── assertions.py              # Verification engine and failure diagnostics
+│   ├── binary_resolver.py         # Cross-platform relative discovery for C executable
 │   ├── controller_client.py       # Subprocess execution, timeouts, and output parsing
 │   ├── models.py                  # Dataclasses and enums (TestCase, ExecutionResult, etc.)
 │   ├── reporter.py                # ANSI console renderer and JSON report writer
@@ -111,17 +143,27 @@ firmware-validation-framework/
 
 ---
 
-## Getting Started
+## Local Getting Started
 
 ### Prerequisites
-
 - **Python 3.10+** (tested on Python 3.14)
-- Compiled Project 1 binary (`sensor_controller.exe` or Linux equivalent)
+- Compiled Project 1 binary (`sensor_controller.exe` or Linux binary)
 
-### Running All Validation Tests
+### Running the Web Dashboard Locally
+```powershell
+# Launch on localhost:8080
+python server.py
 
+# Optional: specify custom port or host
+python server.py --port 8080 --host 127.0.0.1
+```
+
+Once launched, navigate to:
+👉 **`http://127.0.0.1:8080`**
+
+### Running All Validation Tests (CLI)
 ```bash
-# Run full suite using default Project 1 binary location
+# Run full suite using dynamic binary discovery
 python validate.py
 
 # Specify custom controller binary path
@@ -129,9 +171,6 @@ python validate.py --target "path/to/sensor_controller.exe"
 ```
 
 ### Running Specific Test Suites
-
-Filter tests by operational domain:
-
 ```bash
 # Run only boundary condition tests
 python validate.py --suite boundary
@@ -145,44 +184,22 @@ python validate.py --suite invalid_input
 
 Available suite filters: `all`, `normal`, `warning`, `fault`, `boundary`, `invalid_input`, `sensor_error`, `execution_failure`.
 
-### Additional CLI Options
-
-```bash
-# Verbose mode: display full commands, raw stdout, and stderr
-python validate.py -v
-
-# Stop immediately upon first test failure
-python validate.py -x
-
-# Save report to a custom path
-python validate.py --report "reports/my_custom_run.json"
-
-# List all registered test cases without running
-python validate.py --list
-
-# Per-test timeout override (e.g. 5.0 seconds)
-python validate.py --timeout 5.0
-```
-
 ### Running via Standard `unittest`
-
-The framework integrates seamlessly with Python's standard `unittest` discovery:
-
 ```bash
 # Run test catalog through unittest runner
 python -m unittest framework/unittest_adapter.py
 
-# Run framework internal unit tests
+# Run framework internal unit tests (16/16 Passing)
 python -m unittest discover tests
 ```
 
 ---
 
-## Real Validation Results
+## Real Validation Results (37 / 37 Passing)
 
-Sample execution against `sensor_controller.exe` (Project 1):
+Actual console output executing against the compiled `sensor_controller.exe`:
 
-```
+```text
 ================================================================================
  FIRMWARE AUTOMATED VALIDATION FRAMEWORK 
 ================================================================================
@@ -239,97 +256,39 @@ JSON validation report saved to: .../reports/validation_report.json
 
 ---
 
-## JSON Report Format
+## Deploying to Render (Step-by-Step)
 
-The framework automatically outputs a machine-readable JSON report formatted as follows:
+The project includes `Dockerfile` and `render.yaml` for zero-configuration container deployment on Render's Free Web Service tier:
 
-```json
-{
-  "metadata": {
-    "timestamp": "2026-10-26T06:32:20.519330+00:00",
-    "target_binary": "C:\\Users\\...\\sensor_controller.exe",
-    "platform": "Windows 11 (ARM64)",
-    "python_version": "3.14.6"
-  },
-  "statistics": {
-    "total": 37,
-    "passed": 37,
-    "failed": 0,
-    "errors": 0,
-    "timed_out": 0,
-    "skipped": 0,
-    "pass_rate_percent": 100.0,
-    "total_duration_ms": 2438.61,
-    "is_successful": true
-  },
-  "test_results": [
-    {
-      "id": "TC-NORM-01",
-      "name": "Nominal Ambient Temperature",
-      "category": "normal",
-      "description": "Verify nominal room temperature (25.0°C) evaluates to STATE_NORMAL with no faults.",
-      "cli_args": ["25.0"],
-      "status": "PASSED",
-      "duration_ms": 70.68,
-      "failure_reasons": [],
-      "expected": {
-        "exit_code": 0,
-        "state": "NORMAL",
-        "fault": "NONE",
-        "temp": 25.0,
-        "expect_timeout": false
-      },
-      "actual": {
-        "exit_code": 0,
-        "state": "NORMAL",
-        "fault": "NONE",
-        "temp": 25.0,
-        "timed_out": false,
-        "execution_error": null,
-        "stdout": "STATE: NORMAL | TEMP: 25.00 C | FAULT: NONE",
-        "stderr": ""
-      }
-    }
-  ]
-}
 ```
+Stage 1: GCC 13 Builder --> Compiles sensor_controller C binary for Linux x86_64
+Stage 2: Python 3.12 Slim --> Packages server.py, dashboard, framework, and C binary
+```
+
+### Option A: Blueprint Auto-Deploy (Recommended)
+1. Push your repository to GitHub: `https://github.com/Sargunan-1619/firmware-validation-framework`.
+2. Log into [Render Dashboard](https://dashboard.render.com/).
+3. Click **"New +"** -> **"Blueprint"**.
+4. Connect the `firmware-validation-framework` repository.
+5. Render detects `render.yaml` automatically, builds the Docker container, and launches the dashboard.
+
+### Option B: Manual Web Service Setup
+1. Log into [Render Dashboard](https://dashboard.render.com/).
+2. Click **"New +"** -> **"Web Service"**.
+3. Select **"Build and deploy from a Git repository"** and choose `firmware-validation-framework`.
+4. Configure service settings:
+   - **Environment:** `Docker`
+   - **Instance Type:** `Free`
+   - **Health Check Path:** `/api/health`
+5. Click **"Create Web Service"**.
 
 ---
 
-## GitHub Actions CI/CD Integration
+## Scope & Limitations of Host-Based Simulation
 
-To run this validation suite in GitHub Actions, create `.github/workflows/validate.yml`:
-
-```yaml
-name: Firmware Validation
-
-on: [push, pull_request]
-
-jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Validation Framework
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Run Internal Framework Tests
-        run: python -m unittest discover tests
-
-      - name: Run Firmware Validation (if binary present)
-        run: python validate.py --report reports/ci_report.json
-        continue-on-error: false
-
-      - name: Archive Validation Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: validation-report
-          path: reports/validation_report.json
-```
+- **Host Environment Simulation:** This validation framework executes against a compiled desktop/container binary of the sensor controller. **All input readings, communication timeouts, and disconnection flags are software-injected simulated inputs.**
+- **No Physical Hardware:** No physical microcontroller, ADC, or temperature sensor was utilized during this validation. In target hardware deployment, the framework would interface via UART, JTAG/SWD, or CAN bus.
+- **Timing Dynamics:** Process invocation over OS subprocess introduces small process-spawn latencies (typically 30–80 ms) that do not reflect microcontroller ISR response times ($< 1\,\mu\text{s}$).
 
 ---
 

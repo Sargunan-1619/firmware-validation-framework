@@ -26,13 +26,12 @@ class TestValidationRunner(unittest.TestCase):
             expected_fault=FaultCode.NONE,  # Controller actually outputs OVER_TEMP
         )
 
-        target_scratch = Path(
-            r"C:\Users\csarg\.gemini\antigravity-ide\scratch\sensor_fault_controller\build\sensor_controller.exe"
-        )
-        if not target_scratch.exists():
-            self.skipTest("Target sensor_controller.exe not found at default scratch path")
+        from framework.binary_resolver import resolve_target_binary
+        target_bin, exists = resolve_target_binary()
+        if not exists:
+            self.skipTest(f"Target sensor_controller not found at resolved path: {target_bin}")
 
-        runner = ValidationRunner(target_binary=target_scratch, default_timeout_seconds=2.0)
+        runner = ValidationRunner(target_binary=target_bin, default_timeout_seconds=2.0)
         
         with tempfile.TemporaryDirectory() as tmpdir:
             report_file = Path(tmpdir) / "fail_report.json"

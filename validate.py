@@ -15,19 +15,17 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 if str(SCRIPT_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPT_DIR))
 
+from framework.binary_resolver import resolve_target_binary
 from framework.models import TestCase
 from framework.runner import ValidationRunner
 from framework.test_definitions import get_all_test_cases
 
 
-DEFAULT_TARGET_BINARY = os.environ.get(
-    "SENSOR_CONTROLLER_BIN",
-    r"C:\Users\csarg\.gemini\antigravity-ide\scratch\sensor_fault_controller\build\sensor_controller.exe"
-)
 DEFAULT_REPORT_PATH = SCRIPT_DIR / "reports" / "validation_report.json"
 
 
 def parse_args():
+    default_bin, _ = resolve_target_binary(repo_root=SCRIPT_DIR)
     parser = argparse.ArgumentParser(
         description="Firmware Validation Framework: Automated test suite runner for C sensor controllers.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -35,7 +33,7 @@ def parse_args():
     parser.add_argument(
         "-t", "--target",
         dest="target_binary",
-        default=DEFAULT_TARGET_BINARY,
+        default=str(default_bin),
         help="Path to the compiled sensor controller executable under test.",
     )
     parser.add_argument(
