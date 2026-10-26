@@ -116,7 +116,9 @@ class DashboardRequestHandler(SimpleHTTPRequestHandler):
         if not path:
             path = "/"
 
-        if path == "/api/status":
+        if path in ("/api/health", "/health"):
+            self.handle_api_health()
+        elif path == "/api/status":
             self.handle_api_status()
         elif path == "/api/report":
             self.handle_api_report()
@@ -140,6 +142,20 @@ class DashboardRequestHandler(SimpleHTTPRequestHandler):
     # ==========================================================================
     # API Endpoint Implementations
     # ==========================================================================
+
+    def handle_api_health(self) -> None:
+        """Lightweight health check endpoint for cloud monitors and container probes."""
+        target_path, exists = resolve_target_binary(
+            custom_path=str(self.target_binary) if self.target_binary else None,
+            repo_root=REPO_ROOT
+        )
+        self.send_json_response({
+            "status": "healthy",
+            "uptime": "online",
+            "server_time": datetime.now().isoformat(),
+            "binary_exists": exists,
+            "target_binary": str(target_path),
+        })
 
     def handle_api_status(self) -> None:
         """Return server health, resolved binary status, and latest report summary."""

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "timestamp": "2026-10-26T08:48:13.030451+00:00",
+    "timestamp": "2026-10-26T09:10:48.849687+00:00",
     "target_binary": "C:\\Users\\csarg\\.gemini\\antigravity-ide\\scratch\\sensor_fault_controller\\build\\sensor_controller.exe",
     "platform": "Windows 11 (ARM64)",
     "python_version": "3.14.6"
@@ -13,7 +13,7 @@
     "timed_out": 0,
     "skipped": 0,
     "pass_rate_percent": 100.0,
-    "total_duration_ms": 1858.49,
+    "total_duration_ms": 2179.33,
     "is_successful": true
   },
   "test_results": [
@@ -26,7 +26,7 @@
         "25.0"
       ],
       "status": "PASSED",
-      "duration_ms": 137.13,
+      "duration_ms": 51.22,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -55,7 +55,7 @@
         "0.0"
       ],
       "status": "PASSED",
-      "duration_ms": 43.5,
+      "duration_ms": 41.47,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -84,7 +84,7 @@
         "-20.0"
       ],
       "status": "PASSED",
-      "duration_ms": 39.42,
+      "duration_ms": 46.17,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -113,7 +113,7 @@
         "45.0"
       ],
       "status": "PASSED",
-      "duration_ms": 38.87,
+      "duration_ms": 49.63,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -142,7 +142,7 @@
         "59.9"
       ],
       "status": "PASSED",
-      "duration_ms": 43.44,
+      "duration_ms": 69.93,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -171,7 +171,7 @@
         "60.0"
       ],
       "status": "PASSED",
-      "duration_ms": 43.37,
+      "duration_ms": 57.29,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -200,7 +200,7 @@
         "68.5"
       ],
       "status": "PASSED",
-      "duration_ms": 44.11,
+      "duration_ms": 69.62,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -229,7 +229,7 @@
         "75.0"
       ],
       "status": "PASSED",
-      "duration_ms": 44.73,
+      "duration_ms": 66.99,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -258,7 +258,7 @@
         "79.9"
       ],
       "status": "PASSED",
-      "duration_ms": 45.8,
+      "duration_ms": 83.16,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -287,7 +287,7 @@
         "80.0"
       ],
       "status": "PASSED",
-      "duration_ms": 48.19,
+      "duration_ms": 85.64,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -316,7 +316,7 @@
         "88.5"
       ],
       "status": "PASSED",
-      "duration_ms": 50.88,
+      "duration_ms": 75.07,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -345,7 +345,7 @@
         "120.0"
       ],
       "status": "PASSED",
-      "duration_ms": 53.81,
+      "duration_ms": 75.45,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -374,7 +374,7 @@
         "-40.0"
       ],
       "status": "PASSED",
-      "duration_ms": 47.81,
+      "duration_ms": 59.29,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -403,7 +403,7 @@
         "-40.1"
       ],
       "status": "PASSED",
-      "duration_ms": 45.7,
+      "duration_ms": 68.91,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -432,7 +432,7 @@
         "-100.0"
       ],
       "status": "PASSED",
-      "duration_ms": 40.69,
+      "duration_ms": 53.41,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -461,7 +461,7 @@
         "59.99"
       ],
       "status": "PASSED",
-      "duration_ms": 46.67,
+      "duration_ms": 47.88,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -490,7 +490,7 @@
         "60.00"
       ],
       "status": "PASSED",
-      "duration_ms": 50.0,
+      "duration_ms": 45.73,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -519,7 +519,7 @@
         "79.99"
       ],
       "status": "PASSED",
-      "duration_ms": 59.25,
+      "duration_ms": 46.08,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -548,7 +548,7 @@
         "80.00"
       ],
       "status": "PASSED",
-      "duration_ms": 51.41,
+      "duration_ms": 49.23,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -577,7 +577,7 @@
         "150.0"
       ],
       "status": "PASSED",
-      "duration_ms": 57.32,
+      "duration_ms": 48.13,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -606,7 +606,7 @@
         "150.1"
       ],
       "status": "PASSED",
-      "duration_ms": 49.95,
+      "duration_ms": 47.74,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -635,7 +635,7 @@
         "250.0"
       ],
       "status": "PASSED",
-      "duration_ms": 45.58,
+      "duration_ms": 62.78,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -664,7 +664,7 @@
         "INVALID"
       ],
       "status": "PASSED",
-      "duration_ms": 47.65,
+      "duration_ms": 57.53,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -693,7 +693,7 @@
         "NAN"
       ],
       "status": "PASSED",
-      "duration_ms": 44.3,
+      "duration_ms": 55.65,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -722,7 +722,7 @@
         "INF"
       ],
       "status": "PASSED",
-      "duration_ms": 51.85,
+      "duration_ms": 70.29,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -751,7 +751,7 @@
         "-INF"
       ],
       "status": "PASSED",
-      "duration_ms": 56.35,
+      "duration_ms": 64.99,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -780,7 +780,7 @@
         "ERROR"
       ],
       "status": "PASSED",
-      "duration_ms": 54.45,
+      "duration_ms": 66.6,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -809,7 +809,7 @@
         "corrupted_payload"
       ],
       "status": "PASSED",
-      "duration_ms": 50.41,
+      "duration_ms": 67.89,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -836,7 +836,7 @@
       "description": "Verify running controller with zero CLI arguments produces exit code 1 and usage on stderr.",
       "cli_args": [],
       "status": "PASSED",
-      "duration_ms": 53.05,
+      "duration_ms": 59.73,
       "failure_reasons": [],
       "expected": {
         "exit_code": 1,
@@ -866,7 +866,7 @@
         "DISCONNECTED"
       ],
       "status": "PASSED",
-      "duration_ms": 51.28,
+      "duration_ms": 73.45,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -896,7 +896,7 @@
         "COMM_TIMEOUT"
       ],
       "status": "PASSED",
-      "duration_ms": 55.78,
+      "duration_ms": 59.58,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -926,7 +926,7 @@
         "OUT_OF_BOUNDS"
       ],
       "status": "PASSED",
-      "duration_ms": 47.47,
+      "duration_ms": 69.02,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -956,7 +956,7 @@
         "OUT_OF_BOUNDS"
       ],
       "status": "PASSED",
-      "duration_ms": 53.68,
+      "duration_ms": 46.96,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -986,7 +986,7 @@
         "INVALID"
       ],
       "status": "PASSED",
-      "duration_ms": 51.76,
+      "duration_ms": 44.25,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -1016,7 +1016,7 @@
         "disconnected"
       ],
       "status": "PASSED",
-      "duration_ms": 53.27,
+      "duration_ms": 48.86,
       "failure_reasons": [],
       "expected": {
         "exit_code": 2,
@@ -1046,7 +1046,7 @@
         "OK"
       ],
       "status": "PASSED",
-      "duration_ms": 46.97,
+      "duration_ms": 75.16,
       "failure_reasons": [],
       "expected": {
         "exit_code": 0,
@@ -1075,7 +1075,7 @@
         "25.0"
       ],
       "status": "PASSED",
-      "duration_ms": 3.04,
+      "duration_ms": 5.81,
       "failure_reasons": [],
       "expected": {
         "exit_code": null,

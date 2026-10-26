@@ -6,7 +6,7 @@ Uses only the Python standard library (json, pathlib, sys, typing).
 
 import json
 from pathlib import Path
-from typing import Optional, TextIO
+from typing import Optional, TextIO, Union
 import sys
 
 from .models import TestResult, TestStatus, ValidationSummary
