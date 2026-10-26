@@ -1,0 +1,1099 @@
+{
+  "metadata": {
+    "timestamp": "2026-10-26T06:35:12.531614+00:00",
+    "target_binary": "C:\\Users\\csarg\\.gemini\\antigravity-ide\\scratch\\sensor_fault_controller\\build\\sensor_controller.exe",
+    "platform": "Windows 11 (ARM64)",
+    "python_version": "3.14.6"
+  },
+  "statistics": {
+    "total": 37,
+    "passed": 37,
+    "failed": 0,
+    "errors": 0,
+    "timed_out": 0,
+    "skipped": 0,
+    "pass_rate_percent": 100.0,
+    "total_duration_ms": 2438.61,
+    "is_successful": true
+  },
+  "test_results": [
+    {
+      "id": "TC-NORM-01",
+      "name": "Nominal Ambient Temperature",
+      "category": "normal",
+      "description": "Verify nominal room temperature (25.0\u00b0C) evaluates to STATE_NORMAL with no faults.",
+      "cli_args": [
+        "25.0"
+      ],
+      "status": "PASSED",
+      "duration_ms": 70.68,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": 25.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": 25.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: NORMAL | TEMP: 25.00 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-NORM-02",
+      "name": "Zero Degree Operating Point",
+      "category": "normal",
+      "description": "Verify zero degrees Celsius (0.0\u00b0C) evaluates to STATE_NORMAL with no faults.",
+      "cli_args": [
+        "0.0"
+      ],
+      "status": "PASSED",
+      "duration_ms": 60.79,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": 0.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": 0.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: NORMAL | TEMP: 0.00 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-NORM-03",
+      "name": "Valid Sub-Zero Temperature",
+      "category": "normal",
+      "description": "Verify valid cold operating point (-20.0\u00b0C) evaluates to STATE_NORMAL with no faults.",
+      "cli_args": [
+        "-20.0"
+      ],
+      "status": "PASSED",
+      "duration_ms": 58.06,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": -20.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": -20.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: NORMAL | TEMP: -20.00 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-NORM-04",
+      "name": "Elevated Nominal Temperature",
+      "category": "normal",
+      "description": "Verify 45.0\u00b0C evaluates to STATE_NORMAL with no faults.",
+      "cli_args": [
+        "45.0"
+      ],
+      "status": "PASSED",
+      "duration_ms": 69.31,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": 45.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": 45.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: NORMAL | TEMP: 45.00 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-NORM-05",
+      "name": "Upper Normal Range Just Below Warning",
+      "category": "normal",
+      "description": "Verify 59.9\u00b0C (just below the 60.0\u00b0C warning threshold) remains in STATE_NORMAL.",
+      "cli_args": [
+        "59.9"
+      ],
+      "status": "PASSED",
+      "duration_ms": 58.45,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": 59.9,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": 59.9,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: NORMAL | TEMP: 59.90 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-WARN-01",
+      "name": "Exact Warning Threshold",
+      "category": "warning",
+      "description": "Verify exact 60.0\u00b0C boundary triggers STATE_WARNING.",
+      "cli_args": [
+        "60.0"
+      ],
+      "status": "PASSED",
+      "duration_ms": 56.37,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "WARNING",
+        "fault": "NONE",
+        "temp": 60.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "WARNING",
+        "fault": "NONE",
+        "temp": 60.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: WARNING | TEMP: 60.00 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-WARN-02",
+      "name": "Mid Warning Temperature",
+      "category": "warning",
+      "description": "Verify 68.5\u00b0C operating point triggers STATE_WARNING with no active fault.",
+      "cli_args": [
+        "68.5"
+      ],
+      "status": "PASSED",
+      "duration_ms": 70.01,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "WARNING",
+        "fault": "NONE",
+        "temp": 68.5,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "WARNING",
+        "fault": "NONE",
+        "temp": 68.5,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: WARNING | TEMP: 68.50 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-WARN-03",
+      "name": "Elevated Warning Temperature",
+      "category": "warning",
+      "description": "Verify 75.0\u00b0C operating point evaluates to STATE_WARNING.",
+      "cli_args": [
+        "75.0"
+      ],
+      "status": "PASSED",
+      "duration_ms": 82.09,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "WARNING",
+        "fault": "NONE",
+        "temp": 75.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "WARNING",
+        "fault": "NONE",
+        "temp": 75.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: WARNING | TEMP: 75.00 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-WARN-04",
+      "name": "High Warning Just Below Fault",
+      "category": "warning",
+      "description": "Verify 79.9\u00b0C remains in STATE_WARNING without triggering critical fault.",
+      "cli_args": [
+        "79.9"
+      ],
+      "status": "PASSED",
+      "duration_ms": 72.91,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "WARNING",
+        "fault": "NONE",
+        "temp": 79.9,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "WARNING",
+        "fault": "NONE",
+        "temp": 79.9,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: WARNING | TEMP: 79.90 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-FLT-01",
+      "name": "Exact Fault Threshold",
+      "category": "fault",
+      "description": "Verify exact 80.0\u00b0C threshold transitions to STATE_FAULT with FAULT_OVER_TEMP and exit code 2.",
+      "cli_args": [
+        "80.0"
+      ],
+      "status": "PASSED",
+      "duration_ms": 69.86,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "OVER_TEMP",
+        "temp": 80.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "OVER_TEMP",
+        "temp": 80.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: 80.00 C | FAULT: OVER_TEMP",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-FLT-02",
+      "name": "High Over-Temperature Trip",
+      "category": "fault",
+      "description": "Verify critical thermal condition (88.5\u00b0C) triggers STATE_FAULT and exit code 2.",
+      "cli_args": [
+        "88.5"
+      ],
+      "status": "PASSED",
+      "duration_ms": 73.0,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "OVER_TEMP",
+        "temp": 88.5,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "OVER_TEMP",
+        "temp": 88.5,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: 88.50 C | FAULT: OVER_TEMP",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-FLT-03",
+      "name": "Extreme High Over-Temperature",
+      "category": "fault",
+      "description": "Verify severe thermal runaway (120.0\u00b0C) triggers STATE_FAULT and exit code 2.",
+      "cli_args": [
+        "120.0"
+      ],
+      "status": "PASSED",
+      "duration_ms": 83.13,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "OVER_TEMP",
+        "temp": 120.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "OVER_TEMP",
+        "temp": 120.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: 120.00 C | FAULT: OVER_TEMP",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-BND-01",
+      "name": "Transducer Physical Minimum Boundary",
+      "category": "boundary",
+      "description": "Verify exact lower physical limit (-40.0\u00b0C) is valid and normal.",
+      "cli_args": [
+        "-40.0"
+      ],
+      "status": "PASSED",
+      "duration_ms": 86.49,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": -40.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": -40.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: NORMAL | TEMP: -40.00 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-BND-02",
+      "name": "Under-Range Infinitesimal Breach",
+      "category": "boundary",
+      "description": "Verify reading immediately below lower physical bound (-40.1\u00b0C) triggers FAULT_SENSOR_UNDER_RANGE.",
+      "cli_args": [
+        "-40.1"
+      ],
+      "status": "PASSED",
+      "duration_ms": 88.69,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_UNDER_RANGE",
+        "temp": -40.1,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_UNDER_RANGE",
+        "temp": -40.1,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: -40.10 C | FAULT: SENSOR_UNDER_RANGE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-BND-03",
+      "name": "Extreme Under-Range Temperature",
+      "category": "boundary",
+      "description": "Verify extreme negative value (-100.0\u00b0C) triggers FAULT_SENSOR_UNDER_RANGE.",
+      "cli_args": [
+        "-100.0"
+      ],
+      "status": "PASSED",
+      "duration_ms": 88.13,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_UNDER_RANGE",
+        "temp": -100.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_UNDER_RANGE",
+        "temp": -100.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: -100.00 C | FAULT: SENSOR_UNDER_RANGE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-BND-04",
+      "name": "Warning Boundary Delta Lower",
+      "category": "boundary",
+      "description": "Verify 59.99\u00b0C evaluates strictly to STATE_NORMAL.",
+      "cli_args": [
+        "59.99"
+      ],
+      "status": "PASSED",
+      "duration_ms": 88.52,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": 59.99,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": 59.99,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: NORMAL | TEMP: 59.99 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-BND-05",
+      "name": "Warning Boundary Delta Exact",
+      "category": "boundary",
+      "description": "Verify 60.00\u00b0C evaluates strictly to STATE_WARNING.",
+      "cli_args": [
+        "60.00"
+      ],
+      "status": "PASSED",
+      "duration_ms": 91.32,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "WARNING",
+        "fault": "NONE",
+        "temp": 60.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "WARNING",
+        "fault": "NONE",
+        "temp": 60.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: WARNING | TEMP: 60.00 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-BND-06",
+      "name": "Fault Boundary Delta Lower",
+      "category": "boundary",
+      "description": "Verify 79.99\u00b0C evaluates strictly to STATE_WARNING.",
+      "cli_args": [
+        "79.99"
+      ],
+      "status": "PASSED",
+      "duration_ms": 94.53,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "WARNING",
+        "fault": "NONE",
+        "temp": 79.99,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "WARNING",
+        "fault": "NONE",
+        "temp": 79.99,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: WARNING | TEMP: 79.99 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-BND-07",
+      "name": "Fault Boundary Delta Exact",
+      "category": "boundary",
+      "description": "Verify 80.00\u00b0C evaluates strictly to STATE_FAULT.",
+      "cli_args": [
+        "80.00"
+      ],
+      "status": "PASSED",
+      "duration_ms": 75.65,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "OVER_TEMP",
+        "temp": 80.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "OVER_TEMP",
+        "temp": 80.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: 80.00 C | FAULT: OVER_TEMP",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-BND-08",
+      "name": "Transducer Physical Maximum Boundary",
+      "category": "boundary",
+      "description": "Verify exact upper physical limit (150.0\u00b0C) is handled as OVER_TEMP (due to >= 80\u00b0C limit).",
+      "cli_args": [
+        "150.0"
+      ],
+      "status": "PASSED",
+      "duration_ms": 62.34,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "OVER_TEMP",
+        "temp": 150.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "OVER_TEMP",
+        "temp": 150.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: 150.00 C | FAULT: OVER_TEMP",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-BND-09",
+      "name": "Over-Range Infinitesimal Breach",
+      "category": "boundary",
+      "description": "Verify reading immediately exceeding physical bound (150.1\u00b0C) triggers FAULT_SENSOR_OVER_RANGE.",
+      "cli_args": [
+        "150.1"
+      ],
+      "status": "PASSED",
+      "duration_ms": 69.88,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_OVER_RANGE",
+        "temp": 150.1,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_OVER_RANGE",
+        "temp": 150.1,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: 150.10 C | FAULT: SENSOR_OVER_RANGE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-BND-10",
+      "name": "Extreme Over-Range Temperature",
+      "category": "boundary",
+      "description": "Verify 250.0\u00b0C triggers FAULT_SENSOR_OVER_RANGE and exit code 2.",
+      "cli_args": [
+        "250.0"
+      ],
+      "status": "PASSED",
+      "duration_ms": 53.52,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_OVER_RANGE",
+        "temp": 250.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_OVER_RANGE",
+        "temp": 250.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: 250.00 C | FAULT: SENSOR_OVER_RANGE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-INV-01",
+      "name": "Explicit INVALID Keyword",
+      "category": "invalid_input",
+      "description": "Verify explicit 'INVALID' input token triggers FAULT_SENSOR_INVALID_DATA.",
+      "cli_args": [
+        "INVALID"
+      ],
+      "status": "PASSED",
+      "duration_ms": 67.64,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": "INVALID",
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": "INVALID",
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: INVALID | FAULT: SENSOR_INVALID_DATA",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-INV-02",
+      "name": "Explicit NAN Token",
+      "category": "invalid_input",
+      "description": "Verify 'NAN' token triggers FAULT_SENSOR_INVALID_DATA and exit code 2.",
+      "cli_args": [
+        "NAN"
+      ],
+      "status": "PASSED",
+      "duration_ms": 68.86,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": "INVALID",
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": "INVALID",
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: INVALID | FAULT: SENSOR_INVALID_DATA",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-INV-03",
+      "name": "Explicit Positive Infinity Token",
+      "category": "invalid_input",
+      "description": "Verify 'INF' token triggers FAULT_SENSOR_INVALID_DATA and exit code 2.",
+      "cli_args": [
+        "INF"
+      ],
+      "status": "PASSED",
+      "duration_ms": 73.8,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": "INVALID",
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": "INVALID",
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: INVALID | FAULT: SENSOR_INVALID_DATA",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-INV-04",
+      "name": "Explicit Negative Infinity Token",
+      "category": "invalid_input",
+      "description": "Verify '-INF' token triggers FAULT_SENSOR_INVALID_DATA and exit code 2.",
+      "cli_args": [
+        "-INF"
+      ],
+      "status": "PASSED",
+      "duration_ms": 90.93,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": "INVALID",
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": "INVALID",
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: INVALID | FAULT: SENSOR_INVALID_DATA",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-INV-05",
+      "name": "Explicit ERROR Token",
+      "category": "invalid_input",
+      "description": "Verify 'ERROR' token triggers FAULT_SENSOR_INVALID_DATA and exit code 2.",
+      "cli_args": [
+        "ERROR"
+      ],
+      "status": "PASSED",
+      "duration_ms": 65.49,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": "INVALID",
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": "INVALID",
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: INVALID | FAULT: SENSOR_INVALID_DATA",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-INV-06",
+      "name": "Non-Numeric Garbage String",
+      "category": "invalid_input",
+      "description": "Verify alphanumeric string input ('corrupted_payload') fails safely to SENSOR_INVALID_DATA.",
+      "cli_args": [
+        "corrupted_payload"
+      ],
+      "status": "PASSED",
+      "duration_ms": 50.35,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": "INVALID",
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": "INVALID",
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: INVALID | FAULT: SENSOR_INVALID_DATA",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-INV-07",
+      "name": "Missing CLI Arguments (Syntax Error)",
+      "category": "invalid_input",
+      "description": "Verify running controller with zero CLI arguments produces exit code 1 and usage on stderr.",
+      "cli_args": [],
+      "status": "PASSED",
+      "duration_ms": 48.87,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 1,
+        "state": null,
+        "fault": null,
+        "temp": null,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 1,
+        "state": null,
+        "fault": null,
+        "temp": null,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "",
+        "stderr": "Usage: C:\\Users\\csarg\\.gemini\\antigravity-ide\\scratch\\sensor_fault_controller\\build\\sensor_controller.exe <temperature_c|INVALID> [STATUS]\nAvailable STATUS options: OK, DISCONNECTED, COMM_TIMEOUT, OUT_OF_BOUNDS, INVALID\nExamples:\n  C:\\Users\\csarg\\.gemini\\antigravity-ide\\scratch\\sensor_fault_controller\\build\\sensor_controller.exe 25.5\n  C:\\Users\\csarg\\.gemini\\antigravity-ide\\scratch\\sensor_fault_controller\\build\\sensor_controller.exe 60.0\n  C:\\Users\\csarg\\.gemini\\antigravity-ide\\scratch\\sensor_fault_controller\\build\\sensor_controller.exe 80.0\n  C:\\Users\\csarg\\.gemini\\antigravity-ide\\scratch\\sensor_fault_controller\\build\\sensor_controller.exe 25.0 DISCONNECTED\n  C:\\Users\\csarg\\.gemini\\antigravity-ide\\scratch\\sensor_fault_controller\\build\\sensor_controller.exe INVALID"
+      }
+    },
+    {
+      "id": "TC-SNS-01",
+      "name": "Sensor Disconnected Hardware Flag",
+      "category": "sensor_error",
+      "description": "Verify DISCONNECTED status flag triggers FAULT_SENSOR_DISCONNECTED and exit code 2.",
+      "cli_args": [
+        "25.0",
+        "DISCONNECTED"
+      ],
+      "status": "PASSED",
+      "duration_ms": 40.88,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_DISCONNECTED",
+        "temp": 25.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_DISCONNECTED",
+        "temp": 25.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: 25.00 C | FAULT: SENSOR_DISCONNECTED",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-SNS-02",
+      "name": "Communication Bus Timeout Flag",
+      "category": "sensor_error",
+      "description": "Verify COMM_TIMEOUT status flag triggers FAULT_SENSOR_COMM_ERROR and exit code 2.",
+      "cli_args": [
+        "25.0",
+        "COMM_TIMEOUT"
+      ],
+      "status": "PASSED",
+      "duration_ms": 40.74,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_COMM_ERROR",
+        "temp": 25.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_COMM_ERROR",
+        "temp": 25.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: 25.00 C | FAULT: SENSOR_COMM_ERROR",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-SNS-03",
+      "name": "Hardware Out of Bounds Lower Flag",
+      "category": "sensor_error",
+      "description": "Verify OUT_OF_BOUNDS flag with under-range temp triggers FAULT_SENSOR_UNDER_RANGE.",
+      "cli_args": [
+        "-50.0",
+        "OUT_OF_BOUNDS"
+      ],
+      "status": "PASSED",
+      "duration_ms": 46.03,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_UNDER_RANGE",
+        "temp": -50.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_UNDER_RANGE",
+        "temp": -50.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: -50.00 C | FAULT: SENSOR_UNDER_RANGE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-SNS-04",
+      "name": "Hardware Out of Bounds Upper Flag",
+      "category": "sensor_error",
+      "description": "Verify OUT_OF_BOUNDS flag with over-range temp triggers FAULT_SENSOR_OVER_RANGE.",
+      "cli_args": [
+        "160.0",
+        "OUT_OF_BOUNDS"
+      ],
+      "status": "PASSED",
+      "duration_ms": 44.92,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_OVER_RANGE",
+        "temp": 160.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_OVER_RANGE",
+        "temp": 160.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: 160.00 C | FAULT: SENSOR_OVER_RANGE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-SNS-05",
+      "name": "Hardware Status Invalid Flag",
+      "category": "sensor_error",
+      "description": "Verify INVALID telemetry status flag triggers FAULT_SENSOR_INVALID_DATA.",
+      "cli_args": [
+        "25.0",
+        "INVALID"
+      ],
+      "status": "PASSED",
+      "duration_ms": 64.03,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": 25.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_INVALID_DATA",
+        "temp": 25.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: 25.00 C | FAULT: SENSOR_INVALID_DATA",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-SNS-06",
+      "name": "Case-Insensitive Disconnected Flag",
+      "category": "sensor_error",
+      "description": "Verify lowercase status argument 'disconnected' is correctly recognized.",
+      "cli_args": [
+        "25.0",
+        "disconnected"
+      ],
+      "status": "PASSED",
+      "duration_ms": 48.85,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_DISCONNECTED",
+        "temp": 25.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 2,
+        "state": "FAULT",
+        "fault": "SENSOR_DISCONNECTED",
+        "temp": 25.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: FAULT | TEMP: 25.00 C | FAULT: SENSOR_DISCONNECTED",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-SNS-07",
+      "name": "Explicit Healthy OK Status Flag",
+      "category": "sensor_error",
+      "description": "Verify explicit 'OK' status flag produces nominal STATE_NORMAL with no faults.",
+      "cli_args": [
+        "25.0",
+        "OK"
+      ],
+      "status": "PASSED",
+      "duration_ms": 43.94,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": 25.0,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": 0,
+        "state": "NORMAL",
+        "fault": "NONE",
+        "temp": 25.0,
+        "timed_out": false,
+        "execution_error": null,
+        "stdout": "STATE: NORMAL | TEMP: 25.00 C | FAULT: NONE",
+        "stderr": ""
+      }
+    },
+    {
+      "id": "TC-EXEC-01",
+      "name": "Missing Executable Detection",
+      "category": "execution_failure",
+      "description": "Verify framework defensively detects nonexistent binary without crashing.",
+      "cli_args": [
+        "25.0"
+      ],
+      "status": "PASSED",
+      "duration_ms": 5.05,
+      "failure_reasons": [],
+      "expected": {
+        "exit_code": null,
+        "state": null,
+        "fault": null,
+        "temp": null,
+        "expect_timeout": false
+      },
+      "actual": {
+        "exit_code": null,
+        "state": null,
+        "fault": null,
+        "temp": null,
+        "timed_out": false,
+        "execution_error": "Target binary not found: nonexistent_firmware_binary_x99.exe ([WinError 2] The system cannot find the file specified)",
+        "stdout": "",
+        "stderr": ""
+      }
+    }
+  ]
+}
